@@ -1,0 +1,25 @@
+{
+  "name": "agregtrade",
+  "version": "0.0.1",
+  "description": "Agregate trade server",
+  "main": "server.js",
+  "scripts": {
+    "build": "babel server.js --out-dir build",
+    "start": "nodemon --exec babel-node server.js"
+  },
+  "keywords": [
+    "exchanges",
+    "agregate",
+    "trade"
+  ],
+  "author": "Mikhail Sakhnyuk",
+  "license": "MIT",
+  "dependencies": {
+    "reconnecting-websocket": "^4.1.10",
+    "ws": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.12",
+    "@types/ws": "^6.0.1"
+  }
+}
