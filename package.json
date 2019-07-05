@@ -2,15 +2,22 @@
   "name": "agregtrade",
   "version": "0.0.1",
   "description": "Agregate trade server",
-  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sakhnyuk/crypto-exchange-bigdata"
+  },
+  "main": "scr/index.js",
   "scripts": {
-    "build": "babel server.js --out-dir build",
-    "start": "nodemon --exec babel-node server.js"
+    "start": "node build/src/index.js",
+    "build": "tsc",
+    "watch-node": "nodemon build/src/index.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-ts": "tsc -w"
   },
   "keywords": [
-    "exchanges",
-    "agregate",
-    "trade"
+    "exchange",
+    "trade",
+    "cryptocurrency"
   ],
   "author": "Mikhail Sakhnyuk",
   "license": "MIT",
@@ -20,6 +27,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.0.12",
-    "@types/ws": "^6.0.1"
+    "@types/ws": "^6.0.1",
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
   }
 }
