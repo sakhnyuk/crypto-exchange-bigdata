@@ -45,7 +45,7 @@ export default class Binance {
     if (this._sockets.trade) this._sockets.trade.close();
   }
 
-  onTrade(symbol = "BTC/USDT", callback: any) {
+  onTrade(symbol: string = "BTC/USDT", callback: any) {
     const splitSymbol = symbol.split(/[:/]/);
     const newSymbol = splitSymbol[0] + splitSymbol[1];
 
