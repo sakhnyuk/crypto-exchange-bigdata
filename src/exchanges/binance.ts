@@ -8,11 +8,13 @@ export default class Binance {
     trade?: ReconnectingWebSocket;
   };
   streams: { trade: (symbol: string) => string };
+  _proxy: string;
 
-  constructor() {
+  constructor(proxy?: string) {
     this.name = "Binance";
     this._baseUrl = "wss://stream.binance.com:9443/ws/";
     this._sockets = {};
+    this._proxy = proxy;
 
     this.streams = {
       trade: symbol => `${symbol.toLowerCase()}@aggTrade`
@@ -46,8 +48,7 @@ export default class Binance {
   }
 
   onTrade(symbol: string = "BTC/USDT", callback: any) {
-    const splitSymbol = symbol.split(/[:/]/);
-    const newSymbol = splitSymbol[0] + splitSymbol[1];
+    const newSymbol = symbol.replace("/", "");
 
     const handler = res => {
       const side = res.m ? "sell" : "buy";

@@ -1,7 +1,9 @@
 import Binance from "./binance";
+import Bitmex from "./bitmex";
 
 const exchanges = {
-  binance: Binance
+  Binance,
+  Bitmex
 };
 
 export default exchanges;
