@@ -70,7 +70,8 @@ export default class Bitmex {
   }
 
   onTrade(symbol: string, eventHandler: any) {
-    const newSymbol = symbol.replace("/", "");
+    const newSymbol =
+      symbol === "BTC/USDT" ? "XBTUSD" : symbol.replace("/", "");
 
     const handler = res => {
       if (!res.success) {

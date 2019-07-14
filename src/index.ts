@@ -1,21 +1,14 @@
 import exchanges from "./exchanges";
 
-const socket = new exchanges.Binance();
-const socket2 = new exchanges.Bitmex();
+const session: any = {};
 
-socket.onTrade("BTC/USDT", (data: any) => {
-  console.log(data);
-});
+for (const exch in exchanges) {
+  if (exchanges.hasOwnProperty(exch)) {
+    console.log(exch);
 
-// socket2.onTrade("XBT/USD", (data: any) => {
-//   // console.log(data.exchange, data.price)
-//   count = count + 1;
-
-//   console.log(count);
-// });
-
-for (const exch in socket) {
-  if (socket.hasOwnProperty(exch)) {
-    const session = socket[exch];
+    session[exch] = new exchanges[exch]();
   }
+  session[exch].onTrade("BTC/USDT", (data: any) => {
+    console.log(data.exchange, data.price);
+  });
 }
