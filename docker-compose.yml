@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     image: postgres:latest
-    container_name: ps01
+    container_name: bigdata_db
     env_file: .env
     volumes:
       - ./.pgSQL/:/var/lib/postgresql/data

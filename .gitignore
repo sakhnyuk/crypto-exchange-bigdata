@@ -2,3 +2,4 @@ node-modules
 build
 yarn.lock
 .env
+.pgSQL
