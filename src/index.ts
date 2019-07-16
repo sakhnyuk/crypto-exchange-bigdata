@@ -14,7 +14,7 @@ for (const exch in exchanges) {
     async ({ id, exchange, symbol, side, price, amount, timestamp }) => {
       // console.log({ id, exchange, symbol, side, price, amount, timestamp });
 
-      const data = await db.Trade.create({
+      await db.Trade.create({
         tradeId: id,
         exchange,
         symbol,
@@ -23,8 +23,6 @@ for (const exch in exchanges) {
         amount,
         timestamp
       });
-
-      console.log(data);
     }
   );
 }

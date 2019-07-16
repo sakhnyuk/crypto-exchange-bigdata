@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
     host: "localhost",
     port: 9843,
     dialect: "postgres",
-    logging: true
+    logging: false
   }
 );
 
