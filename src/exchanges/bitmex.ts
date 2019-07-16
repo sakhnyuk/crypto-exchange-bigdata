@@ -81,7 +81,7 @@ export default class Bitmex {
               const d = new Date(el.timestamp);
               const trade = {
                 id: el.trdMatchID,
-                side: el.side,
+                side: el.side === "Sell" ? 0 : 1,
                 timestamp: d.getTime(),
                 price: el.price,
                 amount: el.homeNotional,

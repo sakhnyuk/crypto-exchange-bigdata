@@ -1,0 +1,96 @@
+import { Sequelize, Model, DataTypes } from "sequelize";
+import { config } from "dotenv";
+import { resolve } from "path";
+
+config();
+console.log(resolve(__dirname, "../../.env"));
+config({ path: resolve(__dirname, "../../.env") });
+
+console.log(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD
+);
+
+const env = process.env;
+
+const sequelize = new Sequelize(
+  env.POSTGRES_DB,
+  env.POSTGRES_USER,
+  env.POSTGRES_PASSWORD,
+  {
+    host: "localhost",
+    port: 9843,
+    dialect: "postgres",
+    logging: true
+  }
+);
+
+class Trade extends Model {
+  public id!: number;
+  public tradeId!: string;
+  public exchange!: string;
+  public symbol!: string;
+  public side!: number;
+  public price!: number;
+  public amount!: number;
+
+  // timestamps!
+  public timestamp!: number;
+  public readonly createdAt!: Date;
+}
+
+Trade.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    tradeId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    exchange: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    symbol: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    side: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    price: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
+    },
+    amount: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
+    },
+    timestamp: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    }
+  },
+  {
+    tableName: "trades",
+    sequelize
+  }
+);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    global.console.log("Connection to db has been established successfully.");
+  })
+  .catch(err => {
+    global.console.error("Unable to connect to the database:", err);
+  });
+
+sequelize.sync().then(() => {});
+
+export default { Trade, Sequelize, sequelize };

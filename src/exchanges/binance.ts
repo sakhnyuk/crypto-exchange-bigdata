@@ -51,9 +51,9 @@ export default class Binance {
     const newSymbol = symbol.replace("/", "");
 
     const handler = res => {
-      const side = res.m ? "sell" : "buy";
+      const side = res.m ? 0 : 1;
       const trade = {
-        id: res.f,
+        id: res.f.toString(),
         side,
         timestamp: res.T,
         price: +res.p,
