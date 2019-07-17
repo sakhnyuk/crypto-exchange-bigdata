@@ -1,5 +1,6 @@
 import NodeWebSocket from "ws";
 import ReconnectingWebSocket from "reconnecting-websocket";
+import { pairs } from "../utils";
 
 export default class Binance {
   name: string;
@@ -58,8 +59,8 @@ export default class Binance {
         timestamp: res.T,
         price: +res.p,
         amount: +res.q,
-        symbol,
-        exchange: "binance"
+        symbol: pairs.indexOf(symbol),
+        exchange: 0
       };
       callback(trade);
     };

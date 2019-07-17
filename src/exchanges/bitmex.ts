@@ -1,5 +1,6 @@
 import NodeWebSocket from "ws";
 import ReWS from "reconnecting-websocket";
+import { pairs } from "../utils";
 
 export default class Bitmex {
   name: string;
@@ -85,8 +86,8 @@ export default class Bitmex {
                 timestamp: d.getTime(),
                 price: el.price,
                 amount: el.homeNotional,
-                symbol,
-                exchange: "bitmex"
+                symbol: pairs.indexOf(symbol),
+                exchange: 1
               };
               eventHandler(trade);
             }

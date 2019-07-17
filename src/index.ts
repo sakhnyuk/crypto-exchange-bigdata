@@ -5,24 +5,21 @@ const session: any = {};
 
 for (const exch in exchanges) {
   if (exchanges.hasOwnProperty(exch)) {
-    console.log(exch);
-
     session[exch] = new exchanges[exch]();
-  }
-  session[exch].onTrade(
-    "BTC/USDT",
-    async ({ id, exchange, symbol, side, price, amount, timestamp }) => {
-      // console.log({ id, exchange, symbol, side, price, amount, timestamp });
 
-      await db.Trade.create({
-        tradeId: id,
-        exchange,
-        symbol,
-        side,
-        price,
-        amount,
-        timestamp
-      });
-    }
-  );
+    session[exch].onTrade(
+      "BTC/USDT",
+      ({ id, exchange, symbol, side, price, amount, timestamp }) => {
+        db.Trade.create({
+          tradeId: id,
+          exchange,
+          symbol,
+          side,
+          price,
+          amount,
+          timestamp
+        }).then(() => {});
+      }
+    );
+  }
 }

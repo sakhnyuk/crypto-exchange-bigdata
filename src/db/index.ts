@@ -29,8 +29,8 @@ const sequelize = new Sequelize(
 class Trade extends Model {
   public id!: number;
   public tradeId!: string;
-  public exchange!: string;
-  public symbol!: string;
+  public exchange!: number;
+  public symbol!: number;
   public side!: number;
   public price!: number;
   public amount!: number;
@@ -49,14 +49,15 @@ Trade.init(
     },
     tradeId: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     exchange: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     symbol: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     side: {
@@ -72,13 +73,14 @@ Trade.init(
       allowNull: false
     },
     timestamp: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.DATE,
       allowNull: false
     }
   },
   {
     tableName: "trades",
-    sequelize
+    sequelize,
+    timestamps: false
   }
 );
 
