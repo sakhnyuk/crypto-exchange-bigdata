@@ -46,8 +46,25 @@ export default class Bitmex {
         debug: false
       }));
       ws.onopen = () => {
+        console.log("BitMEX");
         Resolver();
       };
+
+      ws.onclose = event => {
+        if (event.wasClean) {
+          console.log("Close BitMEX socket");
+        } else {
+          console.log("Socket failed"); // например, "убит" процесс сервера
+        }
+        console.log(
+          "Close with code: " + event.code + " reason: " + event.reason
+        );
+      };
+
+      ws.onerror = (err: Event) => {
+        console.error("Ошибка " + err);
+      };
+
       ws.onmessage = event => {
         const res = JSON.parse(event.data);
         if (this._handlers[res.table]) this._handlers[res.table](res);

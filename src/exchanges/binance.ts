@@ -37,6 +37,21 @@ export default class Binance {
       debug: false
     });
 
+    this._sockets[type].onopen = () => {
+      console.log("Binance");
+    };
+
+    this._sockets[type].onclose = (event: any) => {
+      if (event.wasClean) {
+        console.log("Close Binance socket");
+      } else {
+        console.log("Socket failed"); // например, "убит" процесс сервера
+      }
+      console.log(
+        "Close with code: " + event.code + " reason: " + event.reason
+      );
+    };
+
     this._sockets[type].onmessage = (event: { data: string }) => {
       const res = JSON.parse(event.data);
       eventHandler(res);

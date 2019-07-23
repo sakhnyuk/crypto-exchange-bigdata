@@ -3,14 +3,7 @@ import { config } from "dotenv";
 import { resolve } from "path";
 
 config();
-console.log(resolve(__dirname, "../../.env"));
 config({ path: resolve(__dirname, "../../.env") });
-
-console.log(
-  process.env.POSTGRES_DB,
-  process.env.POSTGRES_USER,
-  process.env.POSTGRES_PASSWORD
-);
 
 const env = process.env;
 
